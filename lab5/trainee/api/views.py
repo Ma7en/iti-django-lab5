@@ -29,16 +29,7 @@ def trainne_details_api(request, id):
 def trainne_create_api(request):
     traineejson = TraineeSerializer(data=request.data)
     if traineejson.is_valid():
-        # traineejson.save()
-        Trainee.create_trainee(
-            Trainee,
-            traineejson.first_name,
-            traineejson.last_name,
-            traineejson.date_of_birth,
-            traineejson.image,
-            None,
-            None,
-        )
+        traineejson.save()
         return Response(data=traineejson.data, status=status.HTTP_201_CREATED)
     return Response(data=traineejson.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -71,6 +62,35 @@ def trainne_create_api(request):
 #     return Response(
 #         {"message": "GET request not handled"},
 #         status=status.HTTP_405_METHOD_NOT_ALLOWED,
+#     )
+
+
+# @api_view(["POST"])
+# def trainne_create_api(request):
+#     traineejson = TraineeSerializer(data=request.data)
+#     if traineejson.is_valid():
+#         # Access validated data
+#         first_name = traineejson.validated_data.get("first_name")
+#         last_name = traineejson.validated_data.get("last_name")
+#         date_of_birth = traineejson.validated_data.get("date_of_birth")
+#         image = traineejson.validated_data.get("image")
+
+#         # Create the Trainee object using the validated data
+#         Trainee.create_trainee(
+#             Trainee,
+#             first_name,
+#             last_name,
+#             date_of_birth,
+#             image,
+#             None,
+#             None,
+#         )
+#     else:
+#         # Handle invalid data
+#         return Response(traineejson.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     return Response(
+#         {"success": "Trainee created successfully"}, status=status.HTTP_201_CREATED
 #     )
 
 
